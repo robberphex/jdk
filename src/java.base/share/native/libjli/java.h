@@ -26,6 +26,7 @@
 #ifndef _JAVA_H_
 #define _JAVA_H_
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -85,6 +86,15 @@ typedef struct {
     GetDefaultJavaVMInitArgs_t GetDefaultJavaVMInitArgs;
     GetCreatedJavaVMs_t GetCreatedJavaVMs;
 } InvocationFunctions;
+
+static size_t align_up(size_t size, int alignment) {
+    assert((alignment != 0) && ((alignment & (alignment - 1)) == 0));
+
+    size_t ret = (size + (alignment - 1)) & (~(alignment - 1));
+    assert((ret & (alignment - 1)) == 0);
+
+    return ret;
+}
 
 JNIEXPORT int JNICALL
 JLI_Launch(int argc, char ** argv,              /* main argc, argc */

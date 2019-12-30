@@ -719,10 +719,14 @@ int
 CallJavaMainInNewThread(jlong stack_size, void* args) {
     int rslt = 0;
     unsigned thread_id;
+    SYSTEM_INFO si;
 
 #ifndef STACK_SIZE_PARAM_IS_A_RESERVATION
 #define STACK_SIZE_PARAM_IS_A_RESERVATION  (0x10000)
 #endif
+
+    GetSystemInfo(&si);
+    stack_size = align_up(stack_size, si.dwPageSize);
 
     /*
      * STACK_SIZE_PARAM_IS_A_RESERVATION is what we want, but it's not

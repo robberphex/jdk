@@ -744,7 +744,7 @@ CallJavaMainInNewThread(jlong stack_size, void* args) {
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
     if (stack_size > 0) {
-        pthread_attr_setstacksize(&attr, stack_size);
+        pthread_attr_setstacksize(&attr, align_up(stack_size, getpagesize()));
     }
     pthread_attr_setguardsize(&attr, 0); // no pthread guard page on java threads
 
