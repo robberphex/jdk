@@ -57,6 +57,7 @@ public class LockInfo {
 
     private String className;
     private int    identityHashCode;
+    private Object lock;
 
     /**
      * Constructs a {@code LockInfo} object.
@@ -77,6 +78,7 @@ public class LockInfo {
      * package-private constructors
      */
     LockInfo(Object lock) {
+        this.lock = lock;
         this.className = lock.getClass().getName();
         this.identityHashCode = System.identityHashCode(lock);
     }
@@ -88,6 +90,15 @@ public class LockInfo {
      */
     public String getClassName() {
         return className;
+    }
+
+    /**
+     * Returns the lock object.
+     *
+     * @return the lock object.
+     */
+    public Object getLock() {
+        return lock;
     }
 
     /**

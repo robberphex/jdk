@@ -154,6 +154,13 @@ public abstract class LazyCompositeData
         return ((Integer) cd.get(itemName));
     }
 
+    public static Object get(CompositeData cd, String itemName) {
+        if (cd == null)
+            throw new IllegalArgumentException("Null CompositeData");
+
+        return cd.get(itemName);
+    }
+
     /**
      * Compares two CompositeTypes and returns true if
      * all items in type1 exist in type2 and their item types
